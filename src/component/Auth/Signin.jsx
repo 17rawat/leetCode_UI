@@ -2,23 +2,42 @@ import React, { useState } from "react";
 import "./Signin.css";
 import logo from "../Header/logo.png";
 import axios from "axios";
-import Header from "../Header/Header";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 
-const Signin = () => {
+const Signin = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const url = "http://localhost:3001/users/signin";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/users/login", {
+      const response = await axios.post(url, {
         username,
         email,
         password,
       });
-      console.log(response.data); // do something with the response
+
+      if (response.status === 201) {
+        Cookies.set("username", response.data.user.username);
+        Cookies.set("isLoggedIn", true);
+        props.setIsLoggedIn(true);
+
+        setUsername("");
+        setEmail("");
+        setPassword("");
+
+        navigate("/problems");
+      } else {
+        console.log(response.data.error); // display the error message
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -26,7 +45,6 @@ const Signin = () => {
 
   return (
     <div>
-      <Header />
       <div className="login-form-container">
         <div className="logo">
           <img src={logo} alt="LeetCode Logo" />
@@ -77,6 +95,10 @@ const Signin = () => {
       </div>
     </div>
   );
+};
+
+Signin.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default Signin;

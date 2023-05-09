@@ -1,28 +1,42 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import logo from "../Header/logo.png";
+import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 
 import axios from "axios";
-import Header from "../Header/Header";
 
-const SignUp = () => {
+import { useNavigate } from "react-router-dom";
+
+const SignUp = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
 
-  const url = "http://localhost:3001";
+  const navigate = useNavigate();
+
+  const url = "http://localhost:3001/users/signup";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${url}/users/signup`, {
+      const response = await axios.post(url, {
         username,
         email,
         password,
       });
-      console.log(response.data);
+
+      Cookies.set("username", response.data.user.username);
+      Cookies.set("isLoggedIn", true);
+      props.setIsLoggedIn(true);
+      setUsername("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/problems");
+
+      // console.log(response.data.user.username);
     } catch (error) {
       console.log(error);
     }
@@ -30,7 +44,6 @@ const SignUp = () => {
 
   return (
     <div>
-      <Header />
       <div className="container">
         <div className="logo">
           <img src={logo} alt="LeetCode Logo" />
@@ -61,14 +74,7 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          {/* <label>
-            <input
-              placeholder="Confirm Password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </label> */}
+
           <button type="submit">Sign Up</button>
           <p>
             Have an account? <a href="/signin">Sign In</a>
@@ -91,6 +97,10 @@ const SignUp = () => {
       </div>
     </div>
   );
+};
+
+SignUp.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default SignUp;

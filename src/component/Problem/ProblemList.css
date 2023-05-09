@@ -1,0 +1,17 @@
+.problem-table {
+  border-collapse: collapse;
+  margin: 20px;
+}
+
+.problem-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+}
+
+.problem-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #fff;
+}
