@@ -25,6 +25,9 @@ const Signin = (props) => {
         password,
       });
 
+      // console.log(response);
+      localStorage.setItem("token", response.data.token);
+
       if (response.status === 201) {
         Cookies.set("username", response.data.user.username);
         Cookies.set("isLoggedIn", true);
@@ -36,10 +39,12 @@ const Signin = (props) => {
 
         navigate("/problems");
       } else {
-        console.log(response.data.error); // display the error message
+        alert(response.data.error);
+        // console.log(response.data.error); // display the error message
       }
     } catch (error) {
-      console.error(error.message);
+      alert(error.response.data.error);
+      // console.error(error);
     }
   };
 
@@ -73,6 +78,7 @@ const Signin = (props) => {
               required
             />
           </div>
+
           <button type="submit">Sign In</button>
           <div className="form-options">
             <a href="#">Forgot Password?</a>

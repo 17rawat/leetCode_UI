@@ -27,6 +27,8 @@ const SignUp = (props) => {
         password,
       });
 
+      console.log(response);
+
       Cookies.set("username", response.data.user.username);
       Cookies.set("isLoggedIn", true);
       props.setIsLoggedIn(true);
@@ -35,10 +37,9 @@ const SignUp = (props) => {
       setPassword("");
 
       navigate("/problems");
-
-      // console.log(response.data.user.username);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.error);
+      // console.log(error);
     }
   };
 

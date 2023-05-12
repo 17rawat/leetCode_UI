@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../Header/Header";
+
 import "./ProblemList.css";
+import { Link } from "react-router-dom";
 
 const ProblemList = () => {
   const [problems, setProblems] = useState([]);
@@ -23,22 +24,33 @@ const ProblemList = () => {
   }, []);
 
   return (
-    <table className="problem-table">
+    <table>
       <thead>
         <tr>
           <th>Title</th>
-          <th>Accepatance Rate</th>
+          <th>Acceptance Rate</th>
           <th>Difficulty</th>
         </tr>
       </thead>
       <tbody>
         {problems.map((problem) => (
           <tr key={problem._id}>
-            <td>
-              <a href={`/problem/${problem._id}`}>{problem.title}</a>
+            <td style={{ cursor: "pointer" }}>
+              <Link to={`/problems/${problem._id}`}>{problem.title}</Link>
             </td>
             <td>{problem.acceptanceRate}</td>
-            <td>{problem.difficulty}</td>
+            <td
+              style={{
+                color:
+                  problem.difficulty === "Easy"
+                    ? "green"
+                    : problem.difficulty === "Medium"
+                    ? "Blue"
+                    : "red",
+              }}
+            >
+              {problem.difficulty}
+            </td>
           </tr>
         ))}
       </tbody>

@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 
 function Header(props) {
   const location = useLocation();
-  const isHeaderRoute = location.pathname === "/";
+  const isHeaderRoute =
+    location.pathname === "/" || location.pathname === "/problems";
 
   const [username, setUsername] = useState("");
 
@@ -35,7 +36,7 @@ function Header(props) {
             <Link to="/explore">Explore</Link>
           </li>
           <li>
-            <Link to="/problemset/all">Problems</Link>
+            <Link to="/problems">Problems</Link>
           </li>
           <li>
             <Link to="/contest">Contest</Link>
@@ -52,42 +53,41 @@ function Header(props) {
             </Link>
           </li>
 
-          {props.isLoggedIn && (
+          {props.isLoggedIn ? (
             <>
-              <li>
-                {" "}
-                Welcome {username}
-                {/* {props.signupDetails
-                  ? props.signupDetails
-                  : props.signinDetails} */}
-              </li>
+              <li> Welcome {username}</li>
+            </>
+          ) : (
+            <>
+              {isHeaderRoute && (
+                <li>
+                  <Link to="/signin">
+                    <i>Signin</i>
+                  </Link>
+                </li>
+              )}
 
-              <li>
-                <a href="/" onClick={props.handleLogout}>
-                  sign out
-                </a>
-              </li>
+              {isHeaderRoute && (
+                <li>
+                  <span>or</span>
+                </li>
+              )}
+
+              {isHeaderRoute && (
+                <li>
+                  <Link to="/signup">
+                    <i>Register</i>
+                  </Link>
+                </li>
+              )}
             </>
           )}
-          {isHeaderRoute && (
-            <li>
-              <Link to="/signin">
-                <i>Signin</i>
-              </Link>
-            </li>
-          )}
 
-          {isHeaderRoute && (
+          {props.isLoggedIn && (
             <li>
-              <span>or</span>
-            </li>
-          )}
-
-          {isHeaderRoute && (
-            <li>
-              <Link to="/signup">
-                <i>Register</i>
-              </Link>
+              <a href="/" onClick={props.handleLogout}>
+                Sign out
+              </a>
             </li>
           )}
         </ul>

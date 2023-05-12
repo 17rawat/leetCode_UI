@@ -8,6 +8,7 @@ import Home from "./component/Home";
 import ProblemList from "./component/Problem/ProblemList";
 import Header from "./component/Header/Header";
 import Cookies from "js-cookie";
+import ProblemDetails from "./component/Problem/ProblemDetails";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +29,7 @@ export default function App() {
   const handleLogout = () => {
     Cookies.remove("isLoggedIn");
     Cookies.remove("username");
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
 
@@ -46,6 +48,7 @@ export default function App() {
           element={<Signup setIsLoggedIn={setIsLoggedIn} />}
         ></Route>
         <Route path="/problems" element={<ProblemList />}></Route>
+        <Route path="/problems/:problemId" element={<ProblemDetails />}></Route>
       </Routes>
     </div>
   );
