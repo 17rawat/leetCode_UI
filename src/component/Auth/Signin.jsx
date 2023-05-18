@@ -26,10 +26,10 @@ const Signin = (props) => {
       });
 
       // console.log(response);
-      localStorage.setItem("token", response.data.token);
 
       if (response.status === 201) {
-        Cookies.set("username", response.data.user.username);
+        Cookies.set("token", response.data.token);
+        Cookies.set("username", response.data.username);
         Cookies.set("isLoggedIn", true);
         props.setIsLoggedIn(true);
 
@@ -80,8 +80,10 @@ const Signin = (props) => {
           </div>
 
           <button type="submit">Sign In</button>
+
           <div className="form-options">
             <a href="#">Forgot Password?</a>
+
             <a href="/signup">Sign Up</a>
           </div>
           <hr />

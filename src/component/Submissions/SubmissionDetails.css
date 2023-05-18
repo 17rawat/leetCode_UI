@@ -1,0 +1,17 @@
+.submission-details-container {
+  color: white;
+}
+
+/* h1 {
+  color: skyblue;
+} */
+
+.edit-button {
+  float: right;
+  margin-right: 410px;
+
+  margin-bottom: 10px;
+
+  background-color: blue;
+  color: white;
+}

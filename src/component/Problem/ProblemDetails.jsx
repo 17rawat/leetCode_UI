@@ -8,6 +8,7 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-csharp";
 import "ace-builds/src-noconflict/theme-monokai";
 import "./ProblemDetails.css";
+import Cookies from "js-cookie";
 
 const ProblemDetails = () => {
   const { problemId } = useParams();
@@ -35,6 +36,8 @@ const ProblemDetails = () => {
 
   // console.log(problem);
 
+  const problemTitle = problem.title;
+
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
   };
@@ -47,7 +50,8 @@ const ProblemDetails = () => {
 
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
+      console.log(token);
 
       if (!token) {
         alert("You are not authorized to this page!! Sign In Please");
@@ -63,7 +67,9 @@ const ProblemDetails = () => {
         "http://localhost:3001/submission",
         {
           problemId,
+          problemTitle,
           code,
+          language,
         },
         config
       );
@@ -105,6 +111,8 @@ const ProblemDetails = () => {
         onChange={handleCodeChange}
         name="code-editor"
         editorProps={{ $blockScrolling: Infinity }}
+        width="1000px"
+        height="500px"
       />
       <div className="button-container">
         <button>Run</button>

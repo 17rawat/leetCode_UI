@@ -27,16 +27,24 @@ const SignUp = (props) => {
         password,
       });
 
-      console.log(response);
+      // console.log(response);
 
-      Cookies.set("username", response.data.user.username);
-      Cookies.set("isLoggedIn", true);
-      props.setIsLoggedIn(true);
-      setUsername("");
-      setEmail("");
-      setPassword("");
+      if (response.status === 201) {
+        Cookies.set("token", response.data.token);
+        Cookies.set("username", response.data.username);
+        Cookies.set("isLoggedIn", true);
+        props.setIsLoggedIn(true);
 
-      navigate("/problems");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+
+        navigate("/problems");
+      } else {
+        // console.log(response.data.error);
+        alert(response.data.error);
+        // console.log(response.data.error); // display the error message
+      }
     } catch (error) {
       alert(error.response.data.error);
       // console.log(error);

@@ -33,25 +33,19 @@ function Header(props) {
       <nav className="nav-links">
         <ul>
           <li>
-            <Link to="/explore">Explore</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/problems">Problems</Link>
           </li>
-          <li>
-            <Link to="/contest">Contest</Link>
-          </li>
-          <li>
-            <Link to="/discuss">Discuss</Link>
-          </li>
-          <li>
-            <Link to="/premium">Premium</Link>
-          </li>
-          <li>
-            <Link to="/notifications">
-              <i className="fa fa-bell"></i>
-            </Link>
-          </li>
+
+          {props.isLoggedIn && (
+            <li>
+              <Link to="/submissions">
+                <i>mySubmissions</i>
+              </Link>
+            </li>
+          )}
 
           {props.isLoggedIn ? (
             <>
