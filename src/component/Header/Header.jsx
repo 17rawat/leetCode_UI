@@ -27,7 +27,7 @@ function Header(props) {
     <header>
       <div className="logo">
         <img src={logo} alt="LeetCode Logo" />
-        <span>LeetCode</span>
+        <span>pracCode</span>
       </div>
 
       <nav className="nav-links">

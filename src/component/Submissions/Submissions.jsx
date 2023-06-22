@@ -24,7 +24,7 @@ export default function Submissions() {
           config
         );
 
-        console.log(response);
+        // console.log(response);
 
         setSubmissions(response.data.submissions);
       } catch (error) {
@@ -35,7 +35,7 @@ export default function Submissions() {
     fetchSubmissions();
   }, []);
 
-  console.log(submissions);
+  // console.log(submissions);
 
   return (
     <div>

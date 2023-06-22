@@ -51,7 +51,7 @@ const ProblemDetails = () => {
   const handleSubmit = async () => {
     try {
       const token = Cookies.get("token");
-      console.log(token);
+      // console.log(token);
 
       if (!token) {
         alert("You are not authorized to this page!! Sign In Please");

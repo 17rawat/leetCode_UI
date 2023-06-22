@@ -15,13 +15,13 @@ import SubmissionDetails from "./component/Submissions/SubmissionDetails";
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   useEffect(() => {
     // for showing the  username on the header after user reload the page
     const isLoggedInCookie = Cookies.get("isLoggedIn");
 
-    console.log(isLoggedInCookie);
+    // console.log(isLoggedInCookie);
 
     if (isLoggedInCookie === "true") {
       setIsLoggedIn(true);
